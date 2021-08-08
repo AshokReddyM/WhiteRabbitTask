@@ -12,6 +12,10 @@ target 'AstroOracle' do
     :hermes_enabled => false
   )
 
+  pod 'RealmJS', :path => '../node_modules/realm'
+
+  pod 'RNSqlite2', :path => '../node_modules/react-native-sqlite-2'
+
   target 'AstroOracleTests' do
     inherit! :complete
     # Pods for testing
