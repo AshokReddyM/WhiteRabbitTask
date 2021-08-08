@@ -5,10 +5,7 @@ import React from 'react';
 import {View,Text,TouchableOpacity} from 'react-native';
 import 'react-native-reanimated';
 import Dashboard from './src/Screens/Dashboard'
-import Profile from './src/Screens/Profile';
-
-import Realm from 'realm';
-let realm;
+import Profile from './src/Screens/Profile'
 
 
 enableScreens();
@@ -16,24 +13,6 @@ const Stack = createNativeStackNavigator();
 
 
 export default function App() {
-
-    
-realm = new Realm({
-  path: 'EmployeeDatabase.realm',
-  schema: [
-    {
-      name: 'employee_details',
-      properties: {
-        name: 'string',
-        phone: 'int',
-        username: 'string',
-        profile_image: 'string',
-        website: 'string'
-  
-      },
-    },
-  ],
-});
 
   return (
     <Navigations/ >

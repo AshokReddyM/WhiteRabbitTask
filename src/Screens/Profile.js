@@ -8,17 +8,15 @@ export default function Profile(props) {
     const {navigation,route} = props
     const {item} = route.params
     return (
-    <View>
+    <View style={{width:'100%',height:'100%',backgroundColor:"#E9EEF0"}}>
     <ScrollView>
-        <StatusBar translucent={true} hidden={false} backgroundColor="transparent" barStyle="dark-content"/>
-            <View style={{ flexDirection: 'row', backgroundColor: '#E9EEF0', height: 86, }} >
-                <Icon onPress={() => navigation.goBack()} name="chevron-left" size={30} color="#000" style={{ margin: 20, marginTop: 35, }} />
-                <Text style={{ margin: 20, marginTop: 35, fontSize: 18, }} >
+    <StatusBar translucent={true} hidden={false}  backgroundColor="#2196f3" barStyle="light-content" />
+            <View style={{ flexDirection: 'row', backgroundColor: '#00b0ff', height: 86, }} >
+                <Icon onPress={() => navigation.goBack()} name="chevron-left" size={25} color="#fff" style={{ width:55,height:45,margin: 10, marginTop: 35,padding:10}} />
+                <Text style={{ margin: 0, marginTop: 45, fontSize: 18, color:"#ffffff"}} >
                     Profile
                 </Text>
             </View>
-            {/* <Text style={{margin:2}}>{JSON.stringify(item)} </Text> */}
-
             <EmpDetails item={item} />
 
     </ScrollView>
@@ -36,6 +34,7 @@ export const EmpDetails = ({children,item}) => {
         swapShadows // <- change zIndex of each shadow color
         style={styles.container}
         >
+
             <View style={{margin: 20, alignItems: 'center'}}>
                 <Image
                     source={sourceImg}
@@ -93,11 +92,8 @@ export const EmpDetails = ({children,item}) => {
 
 const styles = StyleSheet.create({
     container : {
-        shadowOffset: {width: 5, height: 5},
-        shadowRadius: 10,
         borderRadius: 5,
         backgroundColor: '#E9EEF0',
-        shadowColor: '#00000029',
         width: Dimensions.get("window").width,
         height: 600,
         paddingHorizontal:22,

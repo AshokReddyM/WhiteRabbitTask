@@ -20,7 +20,7 @@ export default function Dashboard(props) {
 
 
 
-    useEffect(() => {getEmp();}, [])
+    useEffect(() => { getEmp(); }, [])
 
     const getEmp = async () => {
         let response = await getEmployees()
@@ -43,10 +43,18 @@ export default function Dashboard(props) {
                     list.push(res.rows.item(i));
 
                 }
-                
-                console.log('item 4:', { list });
-                setRes(list);
-                setList(list);
+
+                const newArray = [];
+                list.forEach(obj => {
+                  if (!newArray.some(o => o.name === obj.name)) {
+                    newArray.push({ ...obj })
+                  }
+             
+                });
+
+                console.log('item 4:', { newArray });
+                setRes(newArray);
+                setList(newArray);
             }
             );
         });
@@ -92,31 +100,24 @@ export default function Dashboard(props) {
 
     return (
         <View>
-            
+            <StatusBar translucent={true} hidden={false} backgroundColor="#2196f3" barStyle="light-content" />
+
+            <View style={{ flexDirection: 'row', backgroundColor: '#00b0ff', height: 86,elevation:10 }} >
+                <Text style={{ margin: 20, marginTop: 40, fontSize: 18, fontWeight: 'bold',color:'#ffffff' }} >Employee List</Text>
+            </View>
             <ScrollView>
 
-
-                
-                <View style={{ width: Dimensions.get("window").width, flex: 1, alignItems: 'center', }}>
-
-                <StatusBar translucent={true} hidden={false} backgroundColor="transparent" barStyle="dark-content" />
-
-<View style={{ flexDirection: 'row', backgroundColor: '#964379', height: 86}} >
-        <Text style={{ margin: 20, marginTop: 40, fontSize: 18,fontWeight: 'bold'}} >
-            Employee List
-        </Text>
-</View>
-
+                <View style={{ width: Dimensions.get("window").width, flex: 1, alignItems: 'center', paddingBottom: 200 }}>
                     <Search search={search} />
                     {
                         fetched ? res?.length ? list.map((item, id) =>
                             <ListItem navigation={navigation} item={item} key={id} />) :
                             <View style={{ flex: 1, marginTop: 50, justifyContent: 'center' }}>
-                                <Text style={{ fontWeight: 'bold', letterSpacing: 1 }}>NO EMPLOYEES</Text>
+                                <Text style={{ fontWeight: 'bold', letterSpacing: 1 }}>Loading .....</Text>
                             </View>
                             :
                             <View style={{ flex: 1, marginTop: 50, justifyContent: 'center' }}>
-                                <Text style={{ fontWeight: 'bold', letterSpacing: 1, textAlign: 'center' }}>Loading ..... </Text>
+                                <Text style={{ fontWeight: 'bold', letterSpacing: 1 }}>Loading ..... </Text>
                             </View>
 
                     }
@@ -165,7 +166,7 @@ export const ListItem = ({ children, item, navigation }) => {
             <TouchableOpacity style={0.8} onPress={() => navigation.navigate('Profile', { item })} style={[styles.ListContainer, { marginTop: 0, paddingHorizontal: 0 }]}>
 
                 <Image source={sourceImg}
-                    style={{ height: 90, width: 90, borderRadius: 20}}
+                    style={{ height: 90, width: 90, borderRadius: 20 }}
                 />
 
                 <View style={{ marginLeft: 10, }}>
@@ -188,13 +189,14 @@ const styles = StyleSheet.create({
     searchcontainer: {
         shadowOffset: { width: 5, height: 5 },
         shadowRadius: 10,
-        borderRadius: 50,
+        borderRadius: 30,
         backgroundColor: '#E9EEF0',
         shadowColor: '#00000029',
         width: 320,
-        height: 47,
+        marginStart:10,
+        height: 50,
         marginTop: 25,
-        paddingHorizontal: 22,
+        paddingHorizontal: 20,
         flexDirection: 'row',
         alignItems: 'center'
     },
@@ -204,10 +206,10 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         backgroundColor: '#E9EEF0',
         shadowColor: '#00000029',
-        width: 320,
+        width: 300,
         height: 130,
         marginTop: 25,
-        paddingHorizontal: 22,
+        paddingHorizontal: 20,
         flexDirection: 'row',
         alignItems: 'center',
     }
